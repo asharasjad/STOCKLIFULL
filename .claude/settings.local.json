@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npm audit:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:css:*)",
+      "Bash(pkill:*)",
+      "Bash(true)",
+      "Bash(node:*)",
+      "Bash(rm:*)",
+      "Bash(curl:*)",
+      "Bash(sqlite3:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(npm --version)"
+    ],
+    "deny": []
+  }
+}

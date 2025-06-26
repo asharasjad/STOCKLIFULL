@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Point of S  System - InventoryPro</title>
+    <link rel="stylesheet" href="../../dist/tailwind.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 min-h-screen flex flex-col transition-colors duration-300" data-page="pos-main">
+    <!-- HEADER -->
+    <header class="bg-white dark:bg-gray-800 shadow flex items-center justify-between px-6 py-4">
+      <!-- Left side: Logo + Title + Home Button -->
+      <div class="flex items-center space-x-4">
+        <img src="../../images/manjaros-logo.png" alt="InventoryPro Logo" class="w-42 h-8 object-cover" />
+        <span class="font-bold text-xl text-gray-800 dark:text-gray-200">InventoryPro</span>
+        <a href="../../index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Home">
+          <span class="material-icons-outlined text-xl align-middle">home</span>
+        </a>
+      </div>
+
+      <!-- Right side: Dark Mode Toggle + Settings + Welcome + Profile Image -->
+      <div class="relative flex items-center space-x-3">
+        <!-- Dark Mode Toggle Button -->
+        <button id="darkModeToggle" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Toggle Dark Mode">
+          <span class="material-icons-outlined text-xl align-middle">dark_mode</span>
+        </button>
+
+        <!-- Bell Icon for Alerts -->
+        <div class="relative">
+          <button id="alertBell" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Alerts">
+            <span class="material-icons-outlined text-xl align-middle">notifications</span>
+          </button>
+          <!-- Alerts Dropdown -->
+          <div id="alertsDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+              <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200">Alerts</h3>
+            </div>
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+              <li class="p-4 text-sm text-gray-700 dark:text-gray-300">Low stock on Product A</li>
+              <li class="p-4 text-sm text-gray-700 dark:text-gray-300">New order received</li>
+              <li class="p-4 text-sm text-gray-700 dark:text-gray-300">System update available</li>
+            </ul>
+            <div class="p-4 text-center">
+              <a href="#" class="text-sm text-blue-600 hover:underline">View all alerts</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Button -->
+        <a href="../../pages/settings/system-settings.html" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Settings">
+          <span class="material-icons-outlined text-xl align-middle">settings</span>
+        </a>
+
+        <!-- Welcome Text -->
+        <span class="text-sm text-gray-700 dark:text-gray-300">
+          Welcome, <span class="font-medium">John Doe</span>
+        </span>
+
+        <!-- Profile Image -->
+        <img src="../../images/anonomous-profile-logo.png" alt="Profile Image" class="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 cursor-pointer" id="profileImage" />
+
+        <!-- Dropdown Menu -->
+        <div id="dropdownMenu" class="hidden absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+          <button id="loginButton" class="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Login</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="mt-4 px-6">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Point of Sale System</h1>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Last updated: <span id="lastUpdated">--:--:--</span></p>
+        </div>
+        <div class="flex space-x-4">
+          <button id="refreshDashboard" class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600">
+            <i class="bi bi-arrow-clockwise mr-2"></i> Refresh
+          </button>
+          <button id="transactionHistoryBtn" class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600">
+            <i class="bi bi-clock-history mr-2"></i> History
+          </button>
+          <button id="newTransactionBtn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <i class="bi bi-plus-lg mr-2"></i> New Transaction
+          </button>
+          <button id="endOfDayBtn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            <i class="bi bi-file-earmark-bar-graph mr-2"></i> End of Day
+          </button>
+        </div>
+      </div>
+
+      <!-- Today's Summary Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Daily Sales Card -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Daily Sales</h3>
+              <p id="dailySales" class="text-2xl font-bold text-green-600">£0.00</p>
+            </div>
+            <i class="bi bi-currency-pound text-4xl text-green-500"></i>
+          </div>
+        </div>
+
+        <!-- Transaction Count Card -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Transactions</h3>
+              <p id="transactionCount" class="text-2xl font-bold text-blue-600">0</p>
+            </div>
+            <i class="bi bi-receipt text-4xl text-blue-500"></i>
+          </div>
+        </div>
+
+        <!-- Average Sale Card -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Average Sale</h3>
+              <p id="averageSale" class="text-2xl font-bold text-purple-600">£0.00</p>
+            </div>
+            <i class="bi bi-graph-up text-4xl text-purple-500"></i>
+          </div>
+        </div>
+
+        <!-- Total Tax Card -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Tax</h3>
+              <p id="totalTax" class="text-2xl font-bold text-orange-600">£0.00</p>
+            </div>
+            <i class="bi bi-calculator text-4xl text-orange-500"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Cards Section -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Sales Mode Card -->
+        <a href="sales-mode.html" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+          <div class="flex items-center justify-between">
+            <div>
+              <i class="bi bi-cash-stack text-4xl text-gray-700 dark:text-gray-300"></i>
+            </div>
+            <i class="bi bi-arrow-right-circle text-2xl text-gray-500 dark:text-gray-400"></i>
+          </div>
+          <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-4">Sales Mode</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Process regular sales transactions and manage customer purchases.</p>
+        </a>
+
+        <!-- Quick Reports Card -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 hover:shadow-md transition-shadow cursor-pointer" onclick="document.getElementById('endOfDayBtn').click()">
+          <div class="flex items-center justify-between">
+            <div>
+              <i class="bi bi-file-earmark-bar-graph text-4xl text-gray-700 dark:text-gray-300"></i>
+            </div>
+            <i class="bi bi-arrow-right-circle text-2xl text-gray-500 dark:text-gray-400"></i>
+          </div>
+          <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-4">Daily Reports</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">View and print daily sales reports and summaries.</p>
+        </div>
+
+        <!-- Transaction History Card -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 hover:shadow-md transition-shadow cursor-pointer" onclick="document.getElementById('transactionHistoryBtn').click()">
+          <div class="flex items-center justify-between">
+            <div>
+              <i class="bi bi-clock-history text-4xl text-gray-700 dark:text-gray-300"></i>
+            </div>
+            <i class="bi bi-arrow-right-circle text-2xl text-gray-500 dark:text-gray-400"></i>
+          </div>
+          <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-4">Transaction History</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">View and manage past transactions and customer orders.</p>
+        </div>
+
+      </div>
+
+      <!-- Payment Methods & Recent Transactions Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Payment Methods Breakdown -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Today's Payment Methods</h3>
+          <div id="paymentBreakdown">
+            <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+              <i class="bi bi-credit-card text-3xl mb-2 block"></i>
+              <p>Loading payment data...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Recent Transactions</h3>
+          <div id="recentTransactions">
+            <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+              <i class="bi bi-receipt text-3xl mb-2 block"></i>
+              <p>Loading transactions...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- End of Day Modal -->
+    <div id="endOfDayModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md max-h-screen overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">End of Day Report</h2>
+          <button onclick="window.posMainDashboard?.hideEndOfDayModal()" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+            <i class="bi bi-x-lg text-xl"></i>
+          </button>
+        </div>
+        <div id="endOfDayReportContent">
+          <!-- Report content will be generated dynamically -->
+        </div>
+        <div class="flex space-x-3 mt-6">
+          <button onclick="window.posMainDashboard?.printEndOfDayReport()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex-1">
+            <i class="bi bi-printer mr-2"></i> Print Report
+          </button>
+          <button onclick="window.posMainDashboard?.hideEndOfDayModal()" class="bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded hover:bg-gray-400 dark:hover:bg-gray-500 flex-1">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/api-client.js"></script>
+    <script src="../../scripts/dropdown.js"></script>
+    <script src="../../scripts/darkmode.js"></script>
+    <script src="../../scripts/alertbell.js"></script>
+    <script src="../../scripts/pos-main.js"></script>
+  </body>
+</html>

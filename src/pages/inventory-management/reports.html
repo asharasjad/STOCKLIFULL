@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reports Dashboard - InventoryPro</title>
+    <link rel="stylesheet" href="../../dist/tailwind.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 min-h-screen flex flex-col transition-colors duration-300" data-page="reports">
+    <!-- HEADER -->
+    <header class="bg-white dark:bg-gray-800 shadow flex items-center justify-between px-6 py-4">
+      <!-- Left side: Logo + Title + Home Button -->
+      <div class="flex items-center space-x-4">
+        <img src="../../images/manjaros-logo.png" alt="InventoryPro Logo" class="w-42 h-8 object-cover" />
+        <span class="font-bold text-xl text-gray-800 dark:text-gray-200">InventoryPro</span>
+        <a href="../../index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Home">
+          <span class="material-icons-outlined text-xl align-middle">home</span>
+        </a>
+      </div>
+
+      <!-- Right side: Dark Mode Toggle + Settings + Welcome + Profile Image -->
+      <div class="relative flex items-center space-x-3">
+        <!-- Dark Mode Toggle Button -->
+        <button id="darkModeToggle" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Toggle Dark Mode">
+          <span class="material-icons-outlined text-xl align-middle">dark_mode</span>
+        </button>
+
+        <!-- Bell Icon for Alerts -->
+        <div class="relative">
+          <button id="alertBell" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Alerts">
+            <span class="material-icons-outlined text-xl align-middle">notifications</span>
+            <span id="alertBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+          </button>
+          <!-- Alerts Dropdown -->
+          <div id="alertsDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+              <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200">Alerts</h3>
+            </div>
+            <div id="alertsList" class="max-h-64 overflow-y-auto">
+              <!-- Alerts will be populated dynamically -->
+            </div>
+            <div class="p-4 text-center border-t border-gray-200 dark:border-gray-700">
+              <a href="../inventory-management/inventory.html?filter=low_stock" class="text-sm text-blue-600 hover:underline">View all alerts</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Button -->
+        <a href="../settings/system-settings.html" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Settings">
+          <span class="material-icons-outlined text-xl align-middle">settings</span>
+        </a>
+
+        <!-- Welcome Text -->
+        <span class="text-sm text-gray-700 dark:text-gray-300">
+          Welcome, <span id="userWelcome" class="font-medium">User</span>
+        </span>
+
+        <!-- Profile Image -->
+        <img src="../../images/anonomous-profile-logo.png" alt="Profile Image" class="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 cursor-pointer" id="profileImage" />
+
+        <!-- Dropdown Menu -->
+        <div id="dropdownMenu" class="hidden absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
+          <button id="loginButton" class="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg">Login</button>
+          <button id="logoutButton" class="hidden block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="flex flex-grow">
+      <!-- LEFT SIDEBAR -->
+      <aside class="bg-white dark:bg-gray-800 w-64 p-6 border-r border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold mb-6 text-gray-800 dark:text-gray-200">Inventory</h2>
+        <nav class="space-y-2">
+          <a href="main-dashboard.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-grid-fill mr-2"></i> Dashboard
+          </a>
+          <a href="inventory.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-box-seam mr-2"></i> Inventory
+          </a>
+          <a href="recipes.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-book-fill mr-2"></i> Recipes
+          </a>
+          <a href="purchase-orders.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-cart-fill mr-2"></i> Purchase Orders
+          </a>
+          <a href="suppliers.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-truck mr-2"></i> Suppliers
+          </a>
+          <a href="reports.html" class="block text-blue-600 dark:text-blue-400 px-2 py-1 rounded bg-blue-50 dark:bg-blue-900">
+            <i class="bi bi-bar-chart-fill mr-2"></i> Reports
+          </a>
+        </nav>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="flex-grow p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">Reports Dashboard</h1>
+          <div class="flex space-x-3">
+            <button id="exportPdfBtn" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 flex items-center">
+              <i class="bi bi-file-pdf mr-2"></i> Export PDF
+            </button>
+            <button id="exportExcelBtn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 flex items-center">
+              <i class="bi bi-file-excel mr-2"></i> Export Excel
+            </button>
+          </div>
+        </div>
+
+        <!-- Report Type Tabs -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow mb-6">
+          <div class="border-b border-gray-200 dark:border-gray-700">
+            <nav class="flex space-x-8 px-6" aria-label="Tabs">
+              <button data-report-type="inventory" class="bg-blue-600 text-white py-4 px-6 text-sm font-medium border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300 dark:hover:text-gray-300 rounded-t-lg">
+                <i class="bi bi-box mr-2"></i> Inventory Reports
+              </button>
+              <button data-report-type="sales" class="text-gray-700 dark:text-gray-300 py-4 px-6 text-sm font-medium border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300 dark:hover:text-gray-300">
+                <i class="bi bi-graph-up mr-2"></i> Sales Analytics
+              </button>
+              <button data-report-type="staff" class="text-gray-700 dark:text-gray-300 py-4 px-6 text-sm font-medium border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300 dark:hover:text-gray-300">
+                <i class="bi bi-people mr-2"></i> Staff Reports
+              </button>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Date Filter -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6">
+          <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Report Filters</h2>
+          <form id="dateRangeForm" class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <div>
+              <label for="startDate" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Start Date</label>
+              <input type="date" id="startDate" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200">
+            </div>
+            <div>
+              <label for="endDate" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">End Date</label>
+              <input type="date" id="endDate" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200">
+            </div>
+            <div class="flex items-end">
+              <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+                <i class="bi bi-funnel mr-2"></i> Apply Filter
+              </button>
+            </div>
+            <div class="flex items-end">
+              <button type="button" id="generateInventoryReport" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 w-full">
+                <i class="bi bi-arrow-clockwise mr-2"></i> Refresh
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Inventory Reports Section -->
+        <div id="inventoryReports" class="report-section">
+          <!-- Inventory Statistics -->
+          <div id="inventoryStats">
+            <!-- Stats will be loaded dynamically -->
+            <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+              <i class="bi bi-arrow-clockwise animate-spin text-3xl mb-2 block"></i>
+              <p>Loading inventory statistics...</p>
+            </div>
+          </div>
+
+          <!-- Low Stock Products -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Low Stock Products</h3>
+            <div id="lowStockTable">
+              <!-- Low stock table will be loaded dynamically -->
+              <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+                <i class="bi bi-arrow-clockwise animate-spin text-3xl mb-2 block"></i>
+                <p>Loading low stock data...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sales Reports Section -->
+        <div id="salesReports" class="report-section hidden">
+          <!-- Sales Statistics -->
+          <div id="salesStats">
+            <!-- Sales stats will be loaded dynamically -->
+            <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+              <i class="bi bi-arrow-clockwise animate-spin text-3xl mb-2 block"></i>
+              <p>Loading sales statistics...</p>
+            </div>
+          </div>
+
+          <!-- Payment Method Breakdown -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Payment Method Breakdown</h3>
+            <div id="paymentBreakdown">
+              <!-- Payment breakdown will be loaded dynamically -->
+              <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+                <i class="bi bi-arrow-clockwise animate-spin text-3xl mb-2 block"></i>
+                <p>Loading payment data...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Staff Reports Section -->
+        <div id="staffReports" class="report-section hidden">
+          <!-- Staff Statistics -->
+          <div id="staffStats">
+            <!-- Staff stats will be loaded dynamically -->
+            <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+              <i class="bi bi-arrow-clockwise animate-spin text-3xl mb-2 block"></i>
+              <p>Loading staff statistics...</p>
+            </div>
+          </div>
+
+          <!-- Employee Schedule Table -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Employee Schedules</h3>
+            <div id="employeeScheduleTable">
+              <!-- Schedule table will be loaded dynamically -->
+              <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+                <i class="bi bi-arrow-clockwise animate-spin text-3xl mb-2 block"></i>
+                <p>Loading schedule data...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="reportsLoading" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white dark:bg-gray-800 rounded-lg p-6 flex items-center space-x-3">
+        <i class="bi bi-arrow-clockwise animate-spin text-2xl text-blue-600"></i>
+        <span class="text-gray-800 dark:text-gray-200">Generating reports...</span>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-96">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">Login</h2>
+          <button id="closeModal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">&times;</button>
+        </div>
+        <form id="loginForm">
+          <div class="mb-4">
+            <label for="loginEmail" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+            <input type="email" id="loginEmail" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="Enter your email" />
+          </div>
+          <div class="mb-4">
+            <label for="loginPassword" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+            <input type="password" id="loginPassword" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="Enter your password" />
+          </div>
+          <div class="flex items-center justify-between mb-4">
+            <label class="flex items-center text-sm text-gray-700 dark:text-gray-300">
+              <input type="checkbox" id="rememberMe" class="mr-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700" /> Remember me
+            </label>
+          </div>
+          <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/api-client.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../scripts/dropdown.js"></script>
+    <script src="../../scripts/darkmode.js"></script>
+    <script src="../../scripts/alertbell.js"></script>
+    <script src="../../scripts/highlight-active.js"></script>
+    <script src="../../scripts/reports.js"></script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+2025-06-26 15:51:48 [[32minfo[39m]: InventoryPro API Server running on port 3001 {
+  "service": "inventorypro-api"
+}
+🚀 InventoryPro API Server started successfully
+📊 Health check: http://localhost:3001/health
+🔗 API Base URL: http://localhost:3001/api
+Connected to SQLite database.
+Creating database tables...
+Database schema initialized successfully.
+Database already contains data, skipping seed.
+2025-06-26 15:51:55 [[32minfo[39m]: GET / {
+  "service": "inventorypro-api",
+  "ip": "::1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+}
+2025-06-26 15:53:51 [[32minfo[39m]: SIGTERM received, shutting down gracefully {
+  "service": "inventorypro-api"
+}
+Database connection closed.
+2025-06-26 15:53:51 [[32minfo[39m]: Database connection closed {
+  "service": "inventorypro-api"
+}

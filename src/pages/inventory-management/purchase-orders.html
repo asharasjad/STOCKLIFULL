@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Purchase Orders - InventoryPro</title>
+    <link rel="stylesheet" href="../../dist/tailwind.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 min-h-screen flex flex-col transition-colors duration-300" data-page="purchase-orders">
+    <!-- HEADER -->
+    <header class="bg-white dark:bg-gray-800 shadow flex items-center justify-between px-6 py-4">
+      <!-- Left side: Logo + Title + Home Button -->
+      <div class="flex items-center space-x-4">
+        <img src="../../images/manjaros-logo.png" alt="InventoryPro Logo" class="w-42 h-8 object-cover" />
+        <span class="font-bold text-xl text-gray-800 dark:text-gray-200">InventoryPro</span>
+        <a href="../../index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Home">
+          <span class="material-icons-outlined text-xl align-middle">home</span>
+        </a>
+      </div>
+
+      <!-- Right side: Dark Mode Toggle + Settings + Welcome + Profile Image -->
+      <div class="relative flex items-center space-x-3">
+        <!-- Dark Mode Toggle Button -->
+        <button id="darkModeToggle" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Toggle Dark Mode">
+          <span class="material-icons-outlined text-xl align-middle">dark_mode</span>
+        </button>
+
+        <!-- Bell Icon for Alerts -->
+        <div class="relative">
+          <button id="alertBell" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Alerts">
+            <span class="material-icons-outlined text-xl align-middle">notifications</span>
+          </button>
+          <!-- Alerts Dropdown -->
+          <div id="alertsDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+              <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200">Alerts</h3>
+            </div>
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+              <li class="p-4 text-sm text-gray-700 dark:text-gray-300">Low stock on Product A</li>
+              <li class="p-4 text-sm text-gray-700 dark:text-gray-300">New order received</li>
+              <li class="p-4 text-sm text-gray-700 dark:text-gray-300">System update available</li>
+            </ul>
+            <div class="p-4 text-center">
+              <a href="#" class="text-sm text-blue-600 hover:underline">View all alerts</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Button -->
+        <a href="../../pages/settings/system-settings.html" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Settings">
+          <span class="material-icons-outlined text-xl align-middle">settings</span>
+        </a>
+
+        <!-- Welcome Text -->
+        <span class="text-sm text-gray-700 dark:text-gray-300">
+          Welcome, <span class="font-medium">John Doe</span>
+        </span>
+
+        <!-- Profile Image -->
+        <img src="../../images/anonomous-profile-logo.png" alt="Profile Image" class="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 cursor-pointer" id="profileImage" />
+
+        <!-- Dropdown Menu -->
+        <div id="dropdownMenu" class="hidden absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+          <button id="loginButton" class="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Login</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="flex flex-grow">
+      <!-- LEFT SIDEBAR -->
+      <aside class="bg-white dark:bg-gray-800 w-64 p-6 border-r border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold mb-6 text-gray-800 dark:text-gray-200">Inventory</h2>
+        <nav class="space-y-2">
+          <a href="main-dashboard.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-grid-fill mr-2"></i> Dashboard
+          </a>
+          <a href="inventory.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-box-seam mr-2"></i> Inventory
+          </a>
+          <a href="recipes.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-book-fill mr-2"></i> Recipes
+          </a>
+          <a href="" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold bg-gray-100 dark:bg-gray-700">
+            <i class="bi bi-cart-fill mr-2"></i> Purchase Orders
+          </a>
+          <a href="suppliers.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-truck mr-2"></i> Suppliers
+          </a>
+          <a href="#" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-bar-chart-fill mr-2"></i> Reports
+          </a>
+        </nav>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="flex-grow p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Purchase Orders</h1>
+          <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center">
+            <i class="bi bi-plus-lg mr-2"></i> New Purchase Order
+          </button>
+        </div>
+
+        <!-- Search and Actions -->
+        <div class="flex items-center space-x-4 mb-6">
+          <input
+            type="text"
+            placeholder="Search orders..."
+            class="w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200"
+          />
+          <button class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600">
+            <i class="bi bi-funnel-fill"></i> Filter
+          </button>
+          <button class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600">
+            <i class="bi bi-box-arrow-up"></i> Export
+          </button>
+        </div>
+
+        <!-- Purchase Orders Table -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">PO Number</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Supplier</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Order Date</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Expected Delivery</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Total Amount</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200">PO-2025001</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">My Halal</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">Jan 15, 2025</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">Jan 22, 2025</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">$149.99</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">Pending</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="#" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-500 mr-4"><i class="bi bi-eye"></i></a>
+                  <a href="#" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-500 mr-4"><i class="bi bi-pencil"></i></a>
+                  <a href="#" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-500"><i class="bi bi-printer"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200">PO-2025002</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">Your Halal</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">Jan 10, 2025</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">Jan 17, 2025</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">$589.50</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Delivered</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="#" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-500 mr-4"><i class="bi bi-eye"></i></a>
+                  <a href="#" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-500 mr-4"><i class="bi bi-pencil"></i></a>
+                  <a href="#" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-500"><i class="bi bi-printer"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-between items-center mt-4">
+          <span class="text-sm text-gray-500 dark:text-gray-300">Showing 1 to 10 of 50 entries</span>
+          <div class="flex space-x-2">
+            <button class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-600">Previous</button>
+            <button class="px-3 py-1 bg-blue-600 text-white rounded">1</button>
+            <button class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-600">2</button>
+            <button class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-600">3</button>
+            <button class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-600">Next</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/api-client.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../scripts/dropdown.js"></script>
+    <script src="../../scripts/darkmode.js"></script>
+    <script src="../../scripts/alertbell.js"></script>
+    <script src="../../scripts/highlight-active.js"></script>
+    <script src="../../scripts/purchase-orders.js"></script>
+  </body>
+</html>

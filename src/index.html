@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>InventoryPro</title>
+    <!-- Points to the compiled Tailwind CSS -->
+    <link rel="stylesheet" href="dist/tailwind.css" />
+    <!-- Material Icons Outlined (clean, neat icons) -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+      /* Watermark styling */
+      .watermark {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+        z-index: 50;
+      }
+      .dark .watermark {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 min-h-screen flex flex-col transition-colors duration-300">
+    <!-- HEADER -->
+    <header class="bg-white dark:bg-gray-800 shadow flex items-center justify-between px-6 py-4">
+      <!-- Left side: Logo + Title + Home Button -->
+      <div class="flex items-center space-x-4">
+        <img src="images/manjaros-logo.png" alt="InventoryPro Logo" class="w-42 h-8 object-cover" />
+        <span class="font-bold text-xl text-gray-800 dark:text-gray-200">InventoryPro</span>
+        <a href="./index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Home">
+          <span class="material-icons-outlined text-xl align-middle">home</span>
+        </a>
+      </div>
+
+      <!-- Right side: Dark Mode Toggle + Settings + Welcome + Profile Image -->
+      <div class="relative flex items-center space-x-3">
+        <!-- Dark Mode Toggle Button -->
+        <button id="darkModeToggle" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Toggle Dark Mode">
+          <span class="material-icons-outlined text-xl align-middle">dark_mode</span>
+        </button>
+
+        <!-- Bell Icon for Alerts -->
+        <div class="relative">
+          <button id="alertBell" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Alerts">
+            <span class="material-icons-outlined text-xl align-middle">notifications</span>
+          </button>
+          
+          <!-- Alerts Dropdown -->
+          <div id="alertsDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+              <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200">Alerts</h3>
+            </div>
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+              <li class="p-4 text-sm text-gray-700 dark:text-gray-300">Low stock on Product A</li>
+              <li class="p-4 text-sm text-gray-700 dark:text-gray-300">New order received</li>
+              <li class="p-4 text-sm text-gray-700 dark:text-gray-300">System update available</li>
+            </ul>
+            <div class="p-4 text-center">
+              <a href="#" class="text-sm text-blue-600 hover:underline">View all alerts</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Button -->
+        <a href="pages/settings/system-settings.html" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Settings">
+          <span class="material-icons-outlined text-xl align-middle">settings</span>
+        </a>
+
+        <!-- Welcome Text -->
+        <span class="text-sm text-gray-700 dark:text-gray-300">
+          Welcome, <span class="font-medium">John Doe</span>
+        </span>
+
+        <!-- Profile Image -->
+        <img src="images/anonomous-profile-logo.png" alt="Profile Image" class="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 cursor-pointer" id="profileImage" />
+
+        <!-- Dropdown Menu -->
+        <div id="dropdownMenu" class="hidden absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+          <button id="loginButton" class="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Login</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-96">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">Login</h2>
+          <button id="closeModal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">&times;</button>
+        </div>
+        <form id="loginForm">
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+            <input type="email" id="email" name="email" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="Enter your email" required />
+          </div>
+          <div class="mb-4">
+            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+            <input type="password" id="password" name="password" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="Enter your password" required />
+          </div>
+          <div class="flex items-center justify-between mb-4">
+            <label class="flex items-center text-sm text-gray-700 dark:text-gray-300">
+              <input type="checkbox" id="rememberMe" name="rememberMe" class="mr-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700" /> Remember me
+            </label>
+            <a href="#" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
+          </div>
+          <div id="loginError" class="mb-4 text-red-600 text-sm hidden"></div>
+          <button type="submit" id="loginSubmit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50">Login</button>
+          <div class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+            <p><strong>Demo Credentials:</strong></p>
+            <p>Email: admin@inventorypro.com</p>
+            <p>Password: admin123</p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="mt-4 px-6">
+      <div class="text-center mb-6">
+        <h1 id="currentDate" class="text-2xl font-bold text-gray-800 dark:text-gray-200"></h1>
+        <h2 id="currentTime" class="text-xl font-medium text-gray-600 dark:text-gray-400"></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <a href="pages/pos/main.html" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-700 dark:text-gray-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.5h19.5m-19.5 4.5h19.5m-19.5 4.5h19.5m-16.5 0v2.25A2.25 2.25 0 007.5 21h9a2.25 2.25 0 002.25-2.25V16.5" />
+          </svg>
+          <h2 class="text-lg font-semibold text-center text-gray-800 dark:text-gray-200">Point of Sale</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400 text-center mt-2">Manage transactions, receipts, and daily sales with our advanced POS system.</p>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="pages/inventory-management/main-dashboard.html" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-700 dark:text-gray-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12l-9 4.5L3 12m9-4.5l9 4.5m-9-4.5v9" />
+          </svg>
+          <h2 class="text-lg font-semibold text-center text-gray-800 dark:text-gray-200">Inventory Management</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400 text-center mt-2">Track stock levels, manage products, and automate reordering processes.</p>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="pages/staff-management/main-dashboard.html" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-700 dark:text-gray-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l3 3m6-3c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8z" />
+          </svg>
+          <h2 class="text-lg font-semibold text-center text-gray-800 dark:text-gray-200">Shift Timings</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400 text-center mt-2">Schedule employee shifts, track attendance, and manage work hours efficiently.</p>
+        </a>
+      </div>
+    </main>
+
+    <!-- Watermark -->
+    <div class="watermark">Created by AwkwardLabs</div>
+
+    <!-- API CLIENT -->
+    <script src="js/api-client.js"></script>
+    
+    <!-- AUTHENTICATION -->
+    <script src="js/auth.js"></script>
+    
+    <!-- RENDERER JS -->
+    <script src="renderer.js"></script>
+    <!-- Load the dropdown script now from the correct path -->
+    <script src="scripts/dropdown.js"></script>
+    <script src="scripts/darkmode.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const currentDateElement = document.getElementById("currentDate");
+        const currentTimeElement = document.getElementById("currentTime");
+
+        // Function to format the date
+        const formatDate = () => {
+          const today = new Date();
+          const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+          return today.toLocaleDateString("en-US", options);
+        };
+
+        // Function to format the time
+        const formatTime = () => {
+          const today = new Date();
+          const is24Hour = localStorage.getItem("timeFormat") === "24";
+          const options = { hour: "numeric", minute: "numeric", hour12: !is24Hour };
+          return today.toLocaleTimeString("en-US", options);
+        };
+
+        // Update the date and time
+        const updateDateTime = () => {
+          currentDateElement.textContent = ` ${formatDate()}`;
+          currentTimeElement.textContent = formatTime();
+        };
+
+        // Update every second
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+      });
+    </script>
+        <script src="../../scripts/alertbell.js"></script>
+  </body>
+</html>

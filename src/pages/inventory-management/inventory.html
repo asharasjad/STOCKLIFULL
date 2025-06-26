@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory - InventoryPro</title>
+    <link rel="stylesheet" href="../../dist/tailwind.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 min-h-screen flex flex-col transition-colors duration-300" data-page="inventory">
+    <!-- HEADER -->
+    <header class="bg-white dark:bg-gray-800 shadow flex items-center justify-between px-6 py-4">
+      <!-- Left side: Logo + Title + Home Button -->
+      <div class="flex items-center space-x-4">
+        <img src="../../images/manjaros-logo.png" alt="InventoryPro Logo" class="w-42 h-8 object-cover" />
+        <span class="font-bold text-xl text-gray-800 dark:text-gray-200">InventoryPro</span>
+        <a href="../../index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Home">
+          <span class="material-icons-outlined text-xl align-middle">home</span>
+        </a>
+      </div>
+
+      <!-- Right side: Dark Mode Toggle + Settings + Welcome + Profile Image -->
+      <div class="relative flex items-center space-x-3">
+        <!-- Dark Mode Toggle Button -->
+        <button id="darkModeToggle" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Toggle Dark Mode">
+          <span class="material-icons-outlined text-xl align-middle">dark_mode</span>
+        </button>
+
+        <!-- Bell Icon for Alerts -->
+        <div class="relative">
+          <button id="alertBell" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Alerts">
+            <span class="material-icons-outlined text-xl align-middle">notifications</span>
+          </button>
+          <!-- Alerts Dropdown -->
+          <div id="alertsDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+              <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200">Alerts</h3>
+            </div>
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+              <li class="p-4 text-sm text-gray-700 dark:text-gray-300">Low stock on Product A</li>
+              <li class="p-4 text-sm text-gray-700 dark:text-gray-300">New order received</li>
+              <li class="p-4 text-sm text-gray-700 dark:text-gray-300">System update available</li>
+            </ul>
+            <div class="p-4 text-center">
+              <a href="#" class="text-sm text-blue-600 hover:underline">View all alerts</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Button -->
+        <a href="../../pages/settings/system-settings.html" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Settings">
+          <span class="material-icons-outlined text-xl align-middle">settings</span>
+        </a>
+
+        <!-- Welcome Text -->
+        <span class="text-sm text-gray-700 dark:text-gray-300" data-user="welcome">
+          Welcome, <span class="font-medium">John Doe</span>
+        </span>
+
+        <!-- Profile Image -->
+        <img src="../../images/anonomous-profile-logo.png" alt="Profile Image" class="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 cursor-pointer" id="profileImage" />
+
+        <!-- Dropdown Menu -->
+        <div id="dropdownMenu" class="hidden absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+          <button id="loginButton" class="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Login</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="flex flex-grow">
+      <!-- Sidebar -->
+      <aside class="bg-white dark:bg-gray-800 w-64 p-6 border-r border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold mb-6 text-gray-800 dark:text-gray-200">Inventory</h2>
+        <nav class="space-y-2">
+          <a href="main-dashboard.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-grid-fill mr-2"></i> Dashboard
+          </a>
+          <a href="" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-box-seam mr-2"></i> Inventory
+          </a>
+          <a href="recipes.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-book-fill mr-2"></i> Recipes
+          </a>
+          <a href="purchase-orders.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-cart-fill mr-2"></i> Purchase Orders
+          </a>
+          <a href="suppliers.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-truck mr-2"></i> Suppliers
+          </a>
+          <a href="reports.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-bar-chart-fill mr-2"></i> Reports
+          </a>
+        </nav>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="flex-grow p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Inventory Items</h1>
+          <button id="addNewItem" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center">
+            <i class="bi bi-plus-lg mr-2"></i> Add New Item
+          </button>
+        </div>
+
+        <!-- Search and Actions -->
+        <div class="flex items-center space-x-4 mb-6">
+          <input
+            type="text"
+            placeholder="Search items..."
+            class="w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200"
+          />
+          <button data-action="filter" class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600">
+            <i class="bi bi-funnel-fill"></i> Filter
+          </button>
+          <button id="manageCategoriesBtn" class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600">
+            <i class="bi bi-tags-fill"></i> Categories
+          </button>
+          <button data-action="export" class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600">
+            <i class="bi bi-box-arrow-up"></i> Export
+          </button>
+        </div>
+
+        <!-- Inventory Table -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Item Name</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">SKU</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Category</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Stock</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Price</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200">Product A</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">SKU-001</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">Food</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">150</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">$299.99</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">In Stock</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="#" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-500 mr-4"><i class="bi bi-pencil"></i></a>
+                  <a href="#" class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-500"><i class="bi bi-trash"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200">Product B</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">SKU-002</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">Cutlery</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">5</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">$59.99</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">Low Stock</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="#" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-500 mr-4"><i class="bi bi-pencil"></i></a>
+                  <a href="#" class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-500"><i class="bi bi-trash"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-between items-center mt-4">
+          <span class="pagination-info text-sm text-gray-500 dark:text-gray-300">Showing 1 to 10 of 100 entries</span>
+          <div class="pagination-buttons flex space-x-2">
+            <button class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-600">Previous</button>
+            <button class="px-3 py-1 bg-blue-600 text-white rounded">1</button>
+            <button class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-600">2</button>
+            <button class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-600">3</button>
+            <button class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-300 dark:hover:bg-gray-600">Next</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-96">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">Login</h2>
+          <button id="closeModal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">&times;</button>
+        </div>
+        <form>
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+            <input type="email" id="email" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="Enter your email" />
+          </div>
+          <div class="mb-4">
+            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+            <input type="password" id="password" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="Enter your password" />
+          </div>
+          <div class="flex items-center justify-between mb-4">
+            <label class="flex items-center text-sm text-gray-700 dark:text-gray-300">
+              <input type="checkbox" class="mr-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700" /> Remember me
+            </label>
+            <a href="#" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
+          </div>
+          <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-2xl max-h-screen overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+          <h2 id="modalTitle" class="text-xl font-bold text-gray-800 dark:text-gray-200">Add New Product</h2>
+          <button id="closeProductModal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">&times;</button>
+        </div>
+        
+        <form id="productForm" enctype="multipart/form-data">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Product Name -->
+            <div class="md:col-span-2">
+              <label for="productName" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Product Name *</label>
+              <input type="text" id="productName" name="name" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="Enter product name" />
+            </div>
+
+            <!-- SKU -->
+            <div>
+              <label for="productSku" class="block text-sm font-medium text-gray-700 dark:text-gray-300">SKU *</label>
+              <input type="text" id="productSku" name="sku" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="Enter SKU" />
+            </div>
+
+            <!-- Category -->
+            <div>
+              <label for="productCategory" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Category *</label>
+              <select id="productCategory" name="category_id" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200">
+                <option value="">Select category...</option>
+              </select>
+            </div>
+
+            <!-- Selling Price -->
+            <div>
+              <label for="sellingPrice" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Selling Price *</label>
+              <input type="number" id="sellingPrice" name="selling_price" step="0.01" min="0" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="0.00" />
+            </div>
+
+            <!-- Cost Price -->
+            <div>
+              <label for="costPrice" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Cost Price</label>
+              <input type="number" id="costPrice" name="cost_price" step="0.01" min="0" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="0.00" />
+            </div>
+
+            <!-- Stock Quantity -->
+            <div>
+              <label for="stockQuantity" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Stock Quantity</label>
+              <input type="number" id="stockQuantity" name="stock_quantity" min="0" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="0" />
+            </div>
+
+            <!-- Reorder Point -->
+            <div>
+              <label for="reorderPoint" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Reorder Point</label>
+              <input type="number" id="reorderPoint" name="reorder_point" min="0" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="5" />
+            </div>
+
+            <!-- Description -->
+            <div class="md:col-span-2">
+              <label for="productDescription" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+              <textarea id="productDescription" name="description" rows="3" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-200" placeholder="Enter product description"></textarea>
+            </div>
+
+            <!-- Image Upload -->
+            <div class="md:col-span-2">
+              <label for="productImage" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Product Image</label>
+              <input type="file" id="productImage" name="image" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-gray-300" />
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Supported formats: JPG, PNG, GIF, WebP (max 5MB)</p>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="flex justify-end space-x-3 mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <button type="button" id="cancelProduct" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+              Cancel
+            </button>
+            <button type="submit" id="saveProduct" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+              Save Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Categories Modal -->
+    <div id="categoriesModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-3xl max-h-screen overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">Manage Categories</h2>
+          <button id="closeCategoriesModal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">&times;</button>
+        </div>
+        
+        <!-- Add New Category Form -->
+        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 mb-6">
+          <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Add New Category</h3>
+          <form id="categoryForm" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="md:col-span-1">
+              <input type="text" id="categoryName" name="name" required 
+                     class="w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200" 
+                     placeholder="Category name" />
+            </div>
+            <div class="md:col-span-1">
+              <input type="text" id="categoryDescription" name="description" 
+                     class="w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200" 
+                     placeholder="Description (optional)" />
+            </div>
+            <div class="md:col-span-1">
+              <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                <i class="bi bi-plus-lg mr-2"></i> Add Category
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Categories List -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Description</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Products</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="categoriesTableBody" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <!-- Categories will be loaded here dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="flex justify-end mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <button id="closeCategoriesModalBtn" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/api-client.js"></script>
+    <script src="../../scripts/dropdown.js"></script>
+    <script src="../../scripts/darkmode.js"></script>
+    <script src="../../scripts/highlight-active.js"></script>
+    <script src="../../scripts/alertbell.js"></script>
+    <script src="../../scripts/alerts.js"></script>
+    <script src="../../scripts/inventory.js"></script>
+  </body>
+</html>

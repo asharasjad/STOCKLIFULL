@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hidden {
+  display: none !important;
+}
+
+.z-50 {
+  z-index: 50;
+}

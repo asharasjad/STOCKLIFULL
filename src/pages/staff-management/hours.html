@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hours Overview - ShiftPro</title>
+    <link rel="stylesheet" href="../../dist/tailwind.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 min-h-screen flex flex-col transition-colors duration-300" data-page="hours">
+    <!-- HEADER -->
+    <header class="bg-white dark:bg-gray-800 shadow flex items-center justify-between px-6 py-4">
+      <!-- Left Section: Logo and Title -->
+      <div class="flex items-center space-x-4">
+        <img src="../../images/manjaros-logo.png" alt="ShiftPro Logo" class="w-42 h-8 object-cover" />
+        <span class="font-bold text-xl text-gray-800 dark:text-gray-200">ShiftPro</span>
+        <a href="../../index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Home">
+          <span class="material-icons-outlined text-xl align-middle">home</span>
+        </a>
+      </div>
+
+      <!-- Right Section: User Info and Actions -->
+      <div class="flex items-center space-x-6">
+        <!-- Notifications -->
+        <button id="alertBell" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Alerts">
+          <span class="material-icons-outlined text-xl align-middle">notifications</span>
+        </button>
+
+        <!-- Settings -->
+        <a href="../../pages/settings/system-settings.html" class="p-1 text-gray-700 dark:text-gray-300 hover:text-blue-600 flex items-center" title="Settings">
+          <span class="material-icons-outlined text-xl align-middle">settings</span>
+        </a>
+
+        <!-- Welcome Text -->
+        <span class="text-sm text-gray-700 dark:text-gray-300">
+          Welcome, <span class="font-medium">John Doe</span>
+        </span>
+
+        <!-- Profile Image -->
+        <img src="../../images/anonomous-profile-logo.png" alt="Profile Image" class="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 cursor-pointer" id="profileImage" />
+      </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="flex flex-grow">
+      <!-- LEFT SIDEBAR -->
+      <aside class="bg-white dark:bg-gray-800 w-64 p-6 border-r border-gray-200 dark:border-gray-700">
+        <h2 class="text-lg font-semibold mb-6 text-gray-800 dark:text-gray-200">Shift Management</h2>
+        <nav class="space-y-2">
+          <a href="main-dashboard.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-grid-fill mr-2"></i> Dashboard
+          </a>
+          <a href="current-rota.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-calendar2-week-fill mr-2"></i> Current Rota
+          </a>
+          <a href="hours.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold bg-gray-100 dark:bg-gray-700">
+            <i class="bi bi-clock-fill mr-2"></i> Hours
+          </a>
+          <a href="analytics.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-bar-chart-fill mr-2"></i> Analytics
+          </a>
+          <a href="reports.html" class="block text-gray-700 dark:text-gray-300 px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i class="bi bi-file-earmark-bar-graph-fill mr-2"></i> Reports
+          </a>
+        </nav>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="flex-grow p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Hours Overview</h1>
+          <button class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700 flex items-center">
+            <i class="bi bi-download mr-2"></i> Export Hours
+          </button>
+        </div>
+
+        <!-- Filters and Summary -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Total Hours This Month</h2>
+            <p class="text-2xl font-bold text-gray-800 dark:text-gray-200">1,240 hrs</p>
+          </div>
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Planned Hours</h2>
+            <p class="text-2xl font-bold text-gray-800 dark:text-gray-200">1,600 hrs</p>
+          </div>
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Overtime Hours</h2>
+            <p class="text-2xl font-bold text-gray-800 dark:text-gray-200">82 hrs</p>
+          </div>
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Absence Hours</h2>
+            <p class="text-2xl font-bold text-gray-800 dark:text-gray-200">24 hrs</p>
+          </div>
+        </div>
+
+        <!-- Employee Hours Breakdown -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6">
+          <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Employee Hours Breakdown</h2>
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Employee</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Planned Hours</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actual Hours</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Overtime</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Absence</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap flex items-center">
+                  <img src="../../images/anonomous-profile-logo.png" alt="Employee Avatar" class="w-8 h-8 rounded-full mr-4" />
+                  <div>
+                    <div class="text-sm font-medium text-gray-900 dark:text-gray-200">Tairmoor</div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">160h</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">155h</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">8h</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">0h</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">On Track</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap flex items-center">
+                  <img src="../../images/anonomous-profile-logo.png" alt="Employee Avatar" class="w-8 h-8 rounded-full mr-4" />
+                  <div>
+                    <div class="text-sm font-medium text-gray-900 dark:text-gray-200">Bilal</div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">160h</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">140h</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">0h</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">8h</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">Behind</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Employee Hours Chart -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Employee Hours - April 2025</h2>
+          <div class="space-y-4">
+            <div class="flex items-center">
+              <span class="w-1/4 text-sm text-gray-800 dark:text-gray-200">Taimoor</span>
+              <div class="w-3/4 bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                <div class="bg-blue-600 h-4 rounded-full" style="width: 90%;"></div>
+              </div>
+              <span class="ml-4 text-sm text-gray-800 dark:text-gray-200">155h</span>
+            </div>
+            <div class="flex items-center">
+              <span class="w-1/4 text-sm text-gray-800 dark:text-gray-200">Ashar</span>
+              <div class="w-3/4 bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                <div class="bg-blue-600 h-4 rounded-full" style="width: 80%;"></div>
+              </div>
+              <span class="ml-4 text-sm text-gray-800 dark:text-gray-200">140h</span>
+            </div>
+            <div class="flex items-center">
+              <span class="w-1/4 text-sm text-gray-800 dark:text-gray-200">Rizwan</span>
+              <div class="w-3/4 bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                <div class="bg-blue-600 h-4 rounded-full" style="width: 105%;"></div>
+              </div>
+              <span class="ml-4 text-sm text-gray-800 dark:text-gray-200">168h</span>
+            </div>
+            <div class="flex items-center">
+              <span class="w-1/4 text-sm text-gray-800 dark:text-gray-200">Bilal</span>
+              <div class="w-3/4 bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                <div class="bg-blue-600 h-4 rounded-full" style="width: 90%;"></div>
+              </div>
+              <span class="ml-4 text-sm text-gray-800 dark:text-gray-200">145h</span>
+            </div>
+            <div class="flex items-center">
+              <span class="w-1/4 text-sm text-gray-800 dark:text-gray-200">Hashim</span>
+              <div class="w-3/4 bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                <div class="bg-blue-600 h-4 rounded-full" style="width: 108%;"></div>
+              </div>
+              <span class="ml-4 text-sm text-gray-800 dark:text-gray-200">172h</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../scripts/dropdown.js"></script>
+    <script src="../../scripts/darkmode.js"></script>
+  </body>
+</html>
